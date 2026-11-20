@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Cool website</title>
+    <style>
+        textarea {
+            width: 200px;
+            height: 200px;
+            resize: vertical;
+        }
+        
+        .unb {
+            font-weight: normal;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================== -->
+    <!-- Text Genr 1 -->
+    <!-- ========================================== -->
+    <hr>
+    <div class='tg1'>
+        <h1>Fossonian Text Generator</h1>
+        <textarea
+            id='tg1i'
+            name='comment'
+            placeholder='Yoril teca tuele...'
+        ></textarea>
+        <br>
+        <button id='gotg1'>Go!</button>
+        <button id='tg1cl'>Clear All</button>
+        <br>
+        <input
+            id='tg1s'
+            type='checkbox'
+        > Support Diacritics</input>
+        <div style='width: 200px;'>
+            <p id='tg1d'></p>
+        </div>
+    </div>
+    <hr>
+    <!-- ========================================== -->
+    <!-- Mothous Time Calculator -->
+    <!-- ========================================== -->
+    <div class='np'>
+        <p>Mothous Time now:</p>
+        <h2 id='npo'>0:00 NN</h2>
+        <p>12HF Time now:</p>    
+        <h2 id='npt'>6:00 AM</h2>
+        <p>Enter time to be calculated</p>
+        <input
+            type='time'
+            id='npi'
+        >
+        <button id='npig'>Go!</button>
+        <h2 class='unb' id='npd'></h2>
+    </div>
+    <hr>
+    <!-- ========================================== -->
+    <!-- Mothous Calendar -->
+    <!-- ========================================== -->
+    <div class='mtt'>
+        <p>Mothous Year:</p>
+        <h2 id='mttn'>48 MY</h2>
+    </div>
+</body>
+</html>
+<script>
+    // =====================================================
+    // (not so) All functions 
+    // =====================================================
+    
+    function tgo_rpc(text, caps, mapping) {
+        const puncts = Object.keys(mapping).map(p => `\\${p}`).join('');
+        const regex = new RegExp(`(?<=[${caps}])[${puncts}](?=[${caps}]|$)`, 'g');
+
+        return text.replace(regex, match => mapping[match]);
+    }
+    
+    function isn(input) {
+        let out = typeof input === 'number';
+        return out;
+    }
+    
+    function dgeb(id) {
+        let out = document.getElementById(id);
+        return out;
+    }
+    
+    function create(eli) {
+        let t = document.createElement(eli);
+        return t;
+    }
+
+   function nnpn(mode = 'am', time = 'now') {
+        let hour, minute;
+
+        if (time === 'now') {
+            const now = new Date();
+            hour = now.getHours();
+            minute = now.getMinutes();
+        } else if (/^\d{1,2}:\d{2}$/.test(time)) {
+            [hour, minute] = time.split(':').map(Number);
+        } else {
+            return null; // invalid input
+        }
+
+        if (mode === 'am') {
+            return convertAMPM(hour, minute);
+        } else if (mode === 'nn') {
+            return convertNNPN(hour, minute);
+        } else {
+            return null; // unknown mode
+        }
+    }
+
+    // Normal AM/PM conversion
+    function convertAMPM(hour, minute) {
+        let period = 'AM';
+    
+        if (hour === 0) hour = 12;
+        else if (hour === 12) period = 'PM';
+        else if (hour > 12) {
+            hour -= 12;
+            period = 'PM';
+        }
+
+        return `${hour}:${String(minute).padStart(2, '0')} ${period}`;
+    }
+
+    // Custom NN/PN conversion
+    function convertNNPN(hour, minute) {
+        let period, displayHour;
+    
+        if (hour >= 6 && hour < 18) {
+            // NN: 6am → 5:59pm
+            period = 'NN';
+            displayHour = hour - 6;
+        } else {
+            // PN: 6pm → 5:59am
+            period = 'PN';
+            displayHour = hour >= 18 ? hour - 18 : hour + 6;
+        }
+
+        return `${displayHour}:${String(minute).padStart(2, '0')} ${period}`;
+    }
+    
+    function tgo_gen(text) {
+        out = '';
+        for (let v of text) {
+            if (v=='A') {out += 'L';} else if (v=='a') {
+                out += '˥';
+                // Next line: diacritic support for ZS, B and W
+            } else if (v=='JA'||v=='Ja') {out += 'Z̋';} else if (v=='ja') {
+                out += 'z̋'
+            } else if (v=='JE'||v=='Je') {out += 'Z̈';} else if (v=='je') {
+                out += 'z̈'
+            } else if (v=='JI'||v=='Ji') {out += 'Ż̧ ';} else if (v=='ji') {
+                out += 'ż̧'
+            } else if (v=='JO'||v=='Jo') {out += 'Z̏';} else if (v=='jo') {
+                out += 'z̏'
+            } else if (v=='JU'||v=='Ju') {out += 'Z̄̇';} else if (v=='ju') {
+                out += 'z̄̇'
+            } else if (v=='JY'||v=='Jy') {out += 'Ż̚';} else if (v=='jy') {
+                out += 'ż̚'
+            } else if (v=='BA'||v=='Ba') {out += 'C̋';} else if (v=='ba') {
+                out += 'q́'
+            } else if (v=='BE'||v=='Be') {out += 'C̈';} else if (v=='be') {
+                out += 'q̇'
+            } else if (v=='BI'||v=='Bi') {out += 'Ç̇';} else if (v=='bi') {
+                out += 'q̈'
+            } else if (v=='BO'||v=='Bo') {out += 'C̏';} else if (v=='bo') {
+                out += 'q̀'
+            } else if (v=='BU'||v=='Bu') {out += 'C̄̇';} else if (v=='bu') {
+                out += 'q̄'
+            } else if (v=='WA'||v=='Wa') {out += 'Ɔ̋';} else if (v=='wa') {
+                out += 'ɔ̋'
+            } else if (v=='WE'||v=='We') {out += 'Ɔ̈';} else if (v=='we') {
+                out += 'ɔ̈'
+            } else if (v=='WI'||v=='Wi') {out += 'Ɔ̧̇ ';} else if (v=='wi') {
+                out += 'ɔ̧̇ '
+            } else if (v=='WO'||v=='Wo') {out += 'Ɔ̏';} else if (v=='wo') {
+                out += 'ɔ̏'
+            } else if (v=='WU'||v=='Wu') {out += 'Ɔ̄̇';} else if (v=='wu') {
+                out += 'ɔ̄̇'
+            
+
+
+            } else if (v=='B') {out += 'Ċ';} else if (v=='b') {
+                out += 'q';
+            } else if (v=='Ķ') {out += 'T';} else if (v=='ķ') {
+                out += 'a';
+            } else if (v=='D') {out += 'U';} else if (v=='d') {
+                out += 'u';
+            } else if (v=='E') {out += 'B';} else if (v=='e') {
+                out += 'y';
+            } else if (v=='F') {out += 'Б';} else if (v=='f') {
+                out += 'в';
+            } else if (v=='G') {out += 'Ө';} else if (v=='g') {
+                out += 'g'; // this is intentional btw
+            } else if (v=='H') {out += 'P';} else if (v=='h') {
+                out += 'p';
+            } else if (v=='I') {out += 'X';} else if (v=='i') {
+                out += 'x';
+            } else if (v=='J'||v=='ZS'||v=='Zs') {out += 'Ż';} else if (v=='j') {
+                out += 'ż';
+            } else if (v=='K') {out += 'N';} else if (v=='k') {
+                out += 'n';
+            } else if (v=='L') {out += 'Ⱬ';} else if (v=='l') {
+                out += 'ʟ';
+            } else if (v=='M') {out += 'Z';} else if (v=='m') {
+                out += 'z';
+            } else if (v=='N') {out += 'W';} else if (v=='n') {
+                out += 'w';
+            } else if (v=='O') {out += 'Ǝ';} else if (v=='o') {
+                out += 'ə';
+            } else if (v=='P') {out += 'Ɔ';} else if (v=='p') {
+                out += 'ɔ';
+            } else if (v=='Ń') {out += 'H';} else if (v=='ń') {
+                out += 'λ';
+            } else if (v=='R') {out += 'D';} else if (v=='r') {
+                out += 'd';
+            } else if (v=='S') {out += 'Λ';} else if (v=='s') {
+                out += 'ʌ';
+            } else if (v=='T') {out += 'C';} else if (v=='t') {
+                out += 'e';
+            } else if (v=='U') {out += 'I';} else if (v=='u') {
+                out += 'ı';
+            } else if (v=='V') {out += 'A';} else if (v=='v') {
+                out += 'ς';
+            } else if (v=='W') {out += 'Ɔ̇';} else if (v=='w') {
+                out += 'ɔ̇';
+            } else if (v=='X') {out += 'J';} else if (v=='x') {
+                out += 'ᴊ';
+            } else if (v=='Y') {out += 'E';} else if (v=='y') {
+                out += 'i';
+            } else if (v=='Z') {out += 'Ŋ';} else if (v=='z') {
+                out += 'ʒ';
+            } else if (v=='C') {out += 'Ƌ';} else if (v=='ć') {
+                out += 'ꜰ';
+            } else if (v=='Ś') {out += 'Ъ';} else if (v=='ś') {
+                out += 'b';
+            } else if (v=='Ó') {out += 'П';} else if (v=='ó') {
+                out += 'п';
+            } else if (v=='Ň') {out += 'V';} else if (v=='ň') {
+                out += 'v';
+            } else if (v=="Ŧ") {out += 'Є';} else if (v=='ŧ') {
+                out += 'є'
+            } else if (v=="Ł") {out += 'G';} else if (v=='ł') {
+                out += 'ц'
+            } else if (v=='¡') {out += 'S';} else if (v=='!') {
+                out += 's';
+            } else if (v=='¿') {out += 'Ƶ';} else if (v=='?') {
+                out += 'ƶ';
+            } else if (v=='…') {out += 'O';} else if (v=='.') {
+                out += 'o';
+            } else if (v=='*') {out += 'ᒣ';} else if (v==',') {
+                out += ','; // yes
+            } else if (v=='1') {out += 'Л';} else if (v=='2') {
+                out += '6';
+            } else if (v=='3') {out += '∂';} else if (v=='4') {
+                out += '9';
+            } else if (v=='5') {out += 'И';} else if (v=='6') {
+                out += '3';
+            } else if (v=='7') {out += 'Ʊ';} else if (v=='8') {
+                out += 'Ш';
+            } else if (v=='9') {out += '4';} else if (v=='0') {
+                out += 'Я';
+            } else if (v==' ') {out += ' ';} else if (v=='$') {
+                out += 'ɕ';
+            } else if (v==':') {out += '-';} else if (v==';') {
+                out += 'м';
+            } else if (v=='--')  {out += 'мм'} else if (v=='') {
+                out += ''
+            } else if (v=='\'') {out += 'ᒽ';} else if (v=='\"') {
+                out += 'ᒽᒽ';
+            } else if (v=='&') {
+                out += 'ω';
+            } else if (v=='❤️'||v=='♥'){
+                out += '⅏'
+            } else {
+                out += v
+            }
+        }
+        return out;
+    }
+    
+    let tgoi = dgeb('tg1i');
+    let tgod = dgeb('tg1d');
+    let gotgo = dgeb('gotg1');
+    let tgocl = dgeb('tg1cl');
+    let tgodi = dgeb('tg1s');
+    
+    tgocl.addEventListener('click', () => {
+        tgoi.value = '';
+        tgod.textContent = '';
+    });
+    
+    gotgo.addEventListener('click', () => {
+        let text = tgoi.value;
+
+        const caps = 'A-Z';
+        const mapping = {
+            '.': '…',
+            ',': '*',
+            '!': '¡',
+            '?': '¿'
+        };
+
+        text = tgo_rpc(text, caps, mapping);
+        console.log(text)
+
+        text = text.replace(/OR|Or/g, 'Ó').replace(/or/g, 'ó')
+            .replace(/SH|Sh/g, 'Ś').replace(/or/g, 'ś')
+            .replace(/ŃU|Ńu/g, 'Ň').replace(/ńu/g, 'ň')
+            .replace(/KH|Kh/g, 'Ķ').replace(/kh/g, 'ķ')
+            .replace(/TT|Tt/g, 'Ŧ').replace(/tt/g, 'ŧ')
+            .replace(/LL|Ll/g, 'Ł').replace(/ll/g, 'ł');
+        
+        if (tgodi.checked) {
+            text = text;
+        }
+        
+        
+    if (tgoi.value) {
+            tgod.textContent = tgo_gen(text);
+        }
+    });
+    // =====================================================
+    // NN-PN Time Calculator!
+    // =====================================================
+    
+    let npo = dgeb('npo');
+    let npt = dgeb('npt');
+    let npi = dgeb('npi');
+    let npig = dgeb('npig');
+    let npd = dgeb('npd');
+    const mnms = 1000 * 60;
+    
+    npo.textContent = nnpn('nn');
+    npt.textContent = nnpn();
+    
+    let lastMinute = new Date().getMinutes();
+    
+    npig.addEventListener('click', () => {
+        let val = npi.value;
+        if (val) {
+            let po = nnpn('nn', val)
+            npd.textContent = po;
+        } else {
+            npd.textContent = '?:??';
+        }
+    });
+    
+    setInterval(() => {
+        const now = new Date();
+        const currentMinute = now.getMinutes();
+
+        if (currentMinute !== lastMinute) {
+            lastMinute = currentMinute;
+            npo.textContent = nnpn('nn');
+            npt.textContent = nnpn();
+        }
+    }, mnms);
+    
+    // =====================================================
+    // Mothous Calendar
+    // =====================================================
+    
+    let mtto = dgeb('mttn');
+    setInterval(() => {
+        let now = new Date();
+        let year = now.getYear() + 1900;
+        let month = now.getMonth() + 1;
+        let myear = ((year - 2019) * 6) + month;
+        mtto.textContent = myear + ' MY';
+    }, (1000 * 60));
+</script>

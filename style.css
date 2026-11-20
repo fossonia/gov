@@ -1,0 +1,116 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('inter.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Agrandir';
+    src: url('agrandirb.woff2') format('woff2');
+}
+:root {
+    --font: 'Inter', sans-serif;
+    --bgcol: linear-gradient(45deg, rgb(125, 194, 255), rgb(99, 216, 157));
+    --txtcol: white;
+}
+
+body {
+    font-family: var(--font);
+    background: var(--bgcol); 
+    min-height: 100vh;
+    margin: 0;
+    color: var(--txtcol);
+    margin: 50px;
+}
+
+.veryhead {
+    text-align: center;
+    font-size: clamp(1.8rem, 10vw, 4rem);
+    font-family: 'Agrandir', sans-serif;
+}
+
+.bighead { margin-top: 100px; }
+
+.smolhead { margin-top: -50px; }
+
+.center {
+    text-align: center;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+img.previmg {
+    width: 450px;
+    height: auto;
+    border-radius: 6px;
+}
+
+.blockgrad {
+    background-color: white;
+    color: black;
+    padding: 30px;
+    border-radius: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+a.b {
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.8s ease-out;
+}
+
+a.b {
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.8s ease-out;
+}
+
+img.b {
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                opacity 0.8s ease-out;
+}
+
+img.b:hover {
+    transform: translateY(-10px);
+}
+
+a.b.appear {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+a.b:hover {
+    transform: translateY(-10px);
+}
+
+.limit {
+    max-width: 600px;
+}
+
+br.half {
+    margin-top: 50px;
+}

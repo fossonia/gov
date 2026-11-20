@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fossonia</title>
+        <meta name="description" content="Just Fossonia. — Curious?">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="../style.css">
+    </head>
+    <body>
+        <h1 class="veryhead bighead">Just Fossonia.</h1>
+        <h1 class="smolhead center">Making the legal world easier</h1>
+        <br>
+        <div class="blockgrad dashb">
+            <a href="Apply For e-ID.html" class="b">
+                <img class="previmg" src="../eid.png" onerror="this.src='../null.png';" alt="Apply for e-ID">
+                <h1>Apply for an e-ID</h1>
+            </a>
+            <a href="Apply For Token.html" class="b">
+                <img class="previmg" src="../hash.png" onerror="this.src='null.png';" alt="Apply for Token">
+                <h1>Apply for a Citizen's Token</h1>
+            </a>
+            <a href="Law - Help Portal.html" class="b">
+                <img class="previmg" src="../document.png" onerror="this.src='../null.png';" alt="Help Portal for laws">
+                <h1>Want to understand our laws further?</h1>
+            </a>
+            <a href="Everyday Help Portal.html" class="b">
+                <img class="previmg" src="../roadmap.png" onerror="this.src='../null.png';" alt="Help Portal">
+                <h1>Tips and facts for your issues</h1>
+            </a>
+            <a href="Departments.html" class="b">
+                <img class="previmg" src="../depts.png" onerror="this.src='../null.png';" alt="Departments">
+                <h1>List of our departments</h1>
+            </a>
+            <a href="../archives-int.html" class="b">
+                <img class="previmg" src="../meeting.png" onerror="this.src='../null.png';" alt="Laws Archive">
+                <h1>Law And Meeting Archives</h1>
+            </a>
+            <a href="Profiles of the Royal Circle.html" class="b">
+                <img class="previmg" src="../lkfind.png" onerror="this.src='../null.png';" alt="Find our LK">
+                <h1>Contact the Royal Circle</h1>
+            </a>
+        </div>
+        <script>
+            const observerOptions = {
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('appear');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            document.querySelectorAll('a.b').forEach(card => {
+                observer.observe(card);
+            });
+        </script>
+    </body>
+</html>
